@@ -1,0 +1,17 @@
+@import url("https://fonts.googleapis.com/css?family=Roboto:400,500,700");
+* {
+  font-family: "Roboto", sans-serif;
+}
+
+.navbar {
+  background-color: #039be5 !important;
+  box-shadow: 0 1px 2px 0 rgba(60, 64, 67, 0.3), 0 1px 3px 1px rgba(60, 64, 67, 0.15);
+}
+.navbar a {
+  color: rgba(255, 255, 255, 0.7) !important;
+}
+.navbar .dropdown-menu .dropdown-item {
+  color: black !important;
+}
+
+/*# sourceMappingURL=app.css.map */
