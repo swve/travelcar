@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -30,6 +32,16 @@ class Parking
      * @ORM\Column(type="integer")
      */
     private $price;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Cars", mappedBy="parking")
+     */
+    private $cars;
+
+    public function __construct()
+    {
+        $this->cars = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -68,6 +80,37 @@ class Parking
     public function setPrice(int $price): self
     {
         $this->price = $price;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Cars[]
+     */
+    public function getCars(): Collection
+    {
+        return $this->cars;
+    }
+
+    public function addCar(Cars $car): self
+    {
+        if (!$this->cars->contains($car)) {
+            $this->cars[] = $car;
+            $car->setParking($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCar(Cars $car): self
+    {
+        if ($this->cars->contains($car)) {
+            $this->cars->removeElement($car);
+            // set the owning side to null (unless already changed)
+            if ($car->getParking() === $this) {
+                $car->setParking(null);
+            }
+        }
 
         return $this;
     }

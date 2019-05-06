@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -59,6 +61,16 @@ class User implements UserInterface
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $username;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Cars", mappedBy="user")
+     */
+    private $cars;
+
+    public function __construct()
+    {
+        $this->cars = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -189,6 +201,37 @@ class User implements UserInterface
     public function setUsername(?string $username): self
     {
         $this->username = $username;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Cars[]
+     */
+    public function getCars(): Collection
+    {
+        return $this->cars;
+    }
+
+    public function addCar(Cars $car): self
+    {
+        if (!$this->cars->contains($car)) {
+            $this->cars[] = $car;
+            $car->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCar(Cars $car): self
+    {
+        if ($this->cars->contains($car)) {
+            $this->cars->removeElement($car);
+            // set the owning side to null (unless already changed)
+            if ($car->getUser() === $this) {
+                $car->setUser(null);
+            }
+        }
 
         return $this;
     }
