@@ -36,14 +36,29 @@ class User implements UserInterface
     private $password;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
-    private $first_name;
+    private $firstname;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
-    private $last_name;
+    private $lastname;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $img;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $bio;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $username;
 
     public function getId(): ?int
     {
@@ -123,26 +138,57 @@ class User implements UserInterface
         // $this->plainPassword = null;
     }
 
-    public function getFName(): ?string
+    public function getFirstname(): ?string
     {
-        return $this->f_name;
+        return $this->firstname;
     }
 
-    public function setFName(string $f_name): self
+    public function setFirstname(?string $firstname): self
     {
-        $this->f_name = $f_name;
+        $this->firstname = $firstname;
 
         return $this;
     }
 
-    public function getLName(): ?string
+    public function getLastname(): ?string
     {
-        return $this->l_name;
+        return $this->lastname;
     }
 
-    public function setLName(string $l_name): self
+    public function setLastname(?string $lastname): self
     {
-        $this->l_name = $l_name;
+        $this->lastname = $lastname;
+
+        return $this;
+    }
+
+    public function getImg(): ?string
+    {
+        return $this->img;
+    }
+
+    public function setImg(?string $img): self
+    {
+        $this->img = $img;
+
+        return $this;
+    }
+
+    public function getBio(): ?string
+    {
+        return $this->bio;
+    }
+
+    public function setBio(?string $bio): self
+    {
+        $this->bio = $bio;
+
+        return $this;
+    }
+
+    public function setUsername(?string $username): self
+    {
+        $this->username = $username;
 
         return $this;
     }
