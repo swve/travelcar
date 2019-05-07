@@ -72,10 +72,16 @@ class User implements UserInterface
      */
     private $reservations;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Parkreview", mappedBy="user")
+     */
+    private $parkreviews;
+
     public function __construct()
     {
         $this->cars = new ArrayCollection();
         $this->reservations = new ArrayCollection();
+        $this->parkreviews = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -267,6 +273,37 @@ class User implements UserInterface
             // set the owning side to null (unless already changed)
             if ($reservation->getUser() === $this) {
                 $reservation->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Parkreview[]
+     */
+    public function getParkreviews(): Collection
+    {
+        return $this->parkreviews;
+    }
+
+    public function addParkreview(Parkreview $parkreview): self
+    {
+        if (!$this->parkreviews->contains($parkreview)) {
+            $this->parkreviews[] = $parkreview;
+            $parkreview->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeParkreview(Parkreview $parkreview): self
+    {
+        if ($this->parkreviews->contains($parkreview)) {
+            $this->parkreviews->removeElement($parkreview);
+            // set the owning side to null (unless already changed)
+            if ($parkreview->getUser() === $this) {
+                $parkreview->setUser(null);
             }
         }
 

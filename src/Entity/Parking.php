@@ -48,11 +48,17 @@ class Parking
      */
     private $reservations;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Parkreview", mappedBy="parking")
+     */
+    private $parkreviews;
+
     public function __construct()
     {
         $this->cars = new ArrayCollection();
         $this->availableSpots = new ArrayCollection();
         $this->reservations = new ArrayCollection();
+        $this->parkreviews = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -183,6 +189,37 @@ class Parking
             // set the owning side to null (unless already changed)
             if ($reservation->getParking() === $this) {
                 $reservation->setParking(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Parkreview[]
+     */
+    public function getParkreviews(): Collection
+    {
+        return $this->parkreviews;
+    }
+
+    public function addParkreview(Parkreview $parkreview): self
+    {
+        if (!$this->parkreviews->contains($parkreview)) {
+            $this->parkreviews[] = $parkreview;
+            $parkreview->setParking($this);
+        }
+
+        return $this;
+    }
+
+    public function removeParkreview(Parkreview $parkreview): self
+    {
+        if ($this->parkreviews->contains($parkreview)) {
+            $this->parkreviews->removeElement($parkreview);
+            // set the owning side to null (unless already changed)
+            if ($parkreview->getParking() === $this) {
+                $parkreview->setParking(null);
             }
         }
 
