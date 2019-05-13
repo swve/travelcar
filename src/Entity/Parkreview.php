@@ -17,7 +17,7 @@ class Parkreview
     private $id;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\user", inversedBy="parkreviews")
+     * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="parkreviews")
      */
     private $user;
 

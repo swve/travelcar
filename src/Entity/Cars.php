@@ -19,7 +19,7 @@ class Cars
     private $id;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\user", inversedBy="cars")
+     * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="cars")
      */
     private $user;
 

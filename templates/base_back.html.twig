@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}Welcome!{% endblock %}</title>
+    {% block stylesheets %}{% endblock %}
+    <link rel="stylesheet" href="https://bootswatch.com/4/solar/bootstrap.min.css">
+    
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <a class="navbar-brand" href="{{ path('index')}}">TravelCar Administration</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Lieux </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Types de lieux </a>
+                </li>
+                <li class="nav-item">
+                        <a class="nav-link" href="#">Parkings </a>
+                </li>
+                <li class="nav-item">
+                        <a class="nav-link" href="#">Automobiles</a>
+                </li>
+                <li class="nav-item">
+                        <a class="nav-link" href="#">Places Parkings </a>
+                </li>
+                <li class="nav-item">
+                        <a class="nav-link" href="#">Reservations </a>
+                </li>
+                <li class="nav-item">
+                        <a class="nav-link" href="#">Avis Parkings </a>
+                </li>
+                
+
+            </ul>
+
+        </div>
+        <div class="login navbar-nav my-lg-0">
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ path('app_login')}}">Utilisateur </a>
+                </li>
+        </div>
+        
+    </nav>
+    <div class="container">
+        <br><br>
+        {% block body %}{% endblock %}
+    </div>
+    {% block javascripts %}{% endblock %}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+</body>
+
+</html>
