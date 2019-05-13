@@ -1,0 +1,8 @@
+{% extends 'base_back.html.twig' %} {% block title %}New Placetype{% endblock %}
+{% block body %}
+<h1>Create new Placetype</h1>
+
+{{ include("placetype/_form.html.twig") }}
+
+<a href="{{ path('placetype_index') }}">back to list</a>
+{% endblock %}
