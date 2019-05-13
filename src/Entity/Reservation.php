@@ -22,12 +22,12 @@ class Reservation
     private $user;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\parking", inversedBy="reservations")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Parking", inversedBy="reservations")
      */
     private $parking;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\cars", inversedBy="reservations")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Cars", inversedBy="reservations")
      */
     private $car;
 

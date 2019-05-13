@@ -1,0 +1,34 @@
+{% extends 'base_back.html.twig' %} {% block title %}Cars index{% endblock %} {%
+block body %}
+<h1>Cars index</h1>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th>Id</th>
+      <th>Label</th>
+      <th>Ref</th>
+      <th>actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for car in cars %}
+    <tr>
+      <td>{{ car.id }}</td>
+      <td>{{ car.label }}</td>
+      <td>{{ car.ref }}</td>
+      <td>
+        <a href="{{ path('cars_show', { id: car.id }) }}">show</a>
+        <a href="{{ path('cars_edit', { id: car.id }) }}">edit</a>
+      </td>
+    </tr>
+    {% else %}
+    <tr>
+      <td colspan="4">no records found</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+<a href="{{ path('cars_new') }}">Create new</a>
+{% endblock %}

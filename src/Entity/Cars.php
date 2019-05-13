@@ -34,7 +34,7 @@ class Cars
     private $ref;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\parking", inversedBy="cars")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Parking", inversedBy="cars")
      */
     private $parking;
 

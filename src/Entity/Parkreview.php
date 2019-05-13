@@ -22,7 +22,7 @@ class Parkreview
     private $user;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\parking", inversedBy="parkreviews")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Parking", inversedBy="parkreviews")
      */
     private $parking;
 
