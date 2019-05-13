@@ -24,7 +24,7 @@ class Parking
     private $title;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\place", inversedBy="parkings")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Place", inversedBy="parkings")
      */
     private $place;
 

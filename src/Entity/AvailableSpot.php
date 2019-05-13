@@ -27,7 +27,7 @@ class AvailableSpot
     private $parking;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\place", inversedBy="availableSpots")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Place", inversedBy="availableSpots")
      */
     private $place;
 
