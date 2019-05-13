@@ -11,7 +11,7 @@
 
 <body>
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-        <a class="navbar-brand" href="{{ path('index')}}">TravelCar Administration</a>
+        <a class="navbar-brand" href="{{ path('back')}}">TravelCar Administration</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
             aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -21,16 +21,16 @@
             <ul class="navbar-nav mr-auto">
 
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Lieux </a>
+                    <a class="nav-link" href="{{ path('place_index')}}">Lieux </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Types de lieux </a>
+                    <a class="nav-link" href="{{ path('placetype_index')}}">Types de lieux </a>
                 </li>
                 <li class="nav-item">
-                        <a class="nav-link" href="#">Parkings </a>
+                        <a class="nav-link" href="{{ path('parking_index')}}">Parkings </a>
                 </li>
                 <li class="nav-item">
-                        <a class="nav-link" href="#">Automobiles</a>
+                        <a class="nav-link" href="{{ path('cars_index')}}">Automobiles</a>
                 </li>
                 <li class="nav-item">
                         <a class="nav-link" href="#">Places Parkings </a>
