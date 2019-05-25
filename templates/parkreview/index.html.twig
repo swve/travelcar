@@ -1,0 +1,34 @@
+{% extends 'base_back.html.twig' %} {% block title %}Parkreview index{% endblock
+%} {% block body %}
+<h1>Parkreview index</h1>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th>Id</th>
+      <th>Starts</th>
+      <th>Comment</th>
+      <th>actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for parkreview in parkreviews %}
+    <tr>
+      <td>{{ parkreview.id }}</td>
+      <td>{{ parkreview.starts }}</td>
+      <td>{{ parkreview.comment }}</td>
+      <td>
+        <a href="{{ path('parkreview_show', { id: parkreview.id }) }}">show</a>
+        <a href="{{ path('parkreview_edit', { id: parkreview.id }) }}">edit</a>
+      </td>
+    </tr>
+    {% else %}
+    <tr>
+      <td colspan="4">no records found</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+<a href="{{ path('parkreview_new') }}">Create new</a>
+{% endblock %}

@@ -1,0 +1,10 @@
+{% extends 'base_back.html.twig' %} {% block title %}Edit Parkreview{% endblock
+%} {% block body %}
+<h1>Edit Parkreview</h1>
+
+{{ include("parkreview/_form.html.twig", { button_label: "Update" }) }}
+
+<a href="{{ path('parkreview_index') }}">back to list</a>
+
+{{ include("parkreview/_delete_form.html.twig") }}
+{% endblock %}

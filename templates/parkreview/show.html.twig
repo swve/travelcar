@@ -1,0 +1,27 @@
+{% extends 'base_back.html.twig' %} {% block title %}Parkreview{% endblock %} {%
+block body %}
+<h1>Parkreview</h1>
+
+<table class="table">
+  <tbody>
+    <tr>
+      <th>Id</th>
+      <td>{{ parkreview.id }}</td>
+    </tr>
+    <tr>
+      <th>Starts</th>
+      <td>{{ parkreview.starts }}</td>
+    </tr>
+    <tr>
+      <th>Comment</th>
+      <td>{{ parkreview.comment }}</td>
+    </tr>
+  </tbody>
+</table>
+
+<a href="{{ path('parkreview_index') }}">back to list</a>
+
+<a href="{{ path('parkreview_edit', { id: parkreview.id }) }}">edit</a>
+
+{{ include("parkreview/_delete_form.html.twig") }}
+{% endblock %}
