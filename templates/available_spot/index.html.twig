@@ -1,0 +1,52 @@
+{% extends 'base_back.html.twig' %} {% block title %}AvailableSpot index{%
+endblock %} {% block body %}
+<h1>AvailableSpot index</h1>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th>Id</th>
+      <th>Code</th>
+      <th>Date_start</th>
+      <th>Date_end</th>
+      <th>Time_start</th>
+      <th>Time_end</th>
+      <th>actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for available_spot in available_spots %}
+    <tr>
+      <td>{{ available_spot.id }}</td>
+      <td>{{ available_spot.code }}</td>
+      <td>
+        {{ available_spot.dateStart ? available_spot.dateStart|date('Y-m-d') : '' }}
+      </td>
+      <td>
+        {{ available_spot.dateEnd ? available_spot.dateEnd|date('Y-m-d') : '' }}
+      </td>
+      <td>
+        {{ available_spot.timeStart ? available_spot.timeStart|date('H:i:s') : '' }}
+      </td>
+      <td>
+        {{ available_spot.timeEnd ? available_spot.timeEnd|date('H:i:s') : '' }}
+      </td>
+      <td>
+        <a href="{{ path('available_spot_show', { id: available_spot.id }) }}"
+          >show</a
+        >
+        <a href="{{ path('available_spot_edit', { id: available_spot.id }) }}"
+          >edit</a
+        >
+      </td>
+    </tr>
+    {% else %}
+    <tr>
+      <td colspan="7">no records found</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+<a href="{{ path('available_spot_new') }}">Create new</a>
+{% endblock %}

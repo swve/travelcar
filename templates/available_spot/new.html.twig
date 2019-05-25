@@ -1,0 +1,8 @@
+{% extends 'base_back.html.twig' %} {% block title %}New AvailableSpot{%
+endblock %} {% block body %}
+<h1>Create new AvailableSpot</h1>
+
+{{ include("available_spot/_form.html.twig") }}
+
+<a href="{{ path('available_spot_index') }}">back to list</a>
+{% endblock %}

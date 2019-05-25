@@ -1,0 +1,47 @@
+{% extends 'base_back.html.twig' %} {% block title %}AvailableSpot{% endblock %}
+{% block body %}
+<h1>AvailableSpot</h1>
+
+<table class="table">
+  <tbody>
+    <tr>
+      <th>Id</th>
+      <td>{{ available_spot.id }}</td>
+    </tr>
+    <tr>
+      <th>Code</th>
+      <td>{{ available_spot.code }}</td>
+    </tr>
+    <tr>
+      <th>Date_start</th>
+      <td>
+        {{ available_spot.dateStart ? available_spot.dateStart|date('Y-m-d') : '' }}
+      </td>
+    </tr>
+    <tr>
+      <th>Date_end</th>
+      <td>
+        {{ available_spot.dateEnd ? available_spot.dateEnd|date('Y-m-d') : '' }}
+      </td>
+    </tr>
+    <tr>
+      <th>Time_start</th>
+      <td>
+        {{ available_spot.timeStart ? available_spot.timeStart|date('H:i:s') : '' }}
+      </td>
+    </tr>
+    <tr>
+      <th>Time_end</th>
+      <td>
+        {{ available_spot.timeEnd ? available_spot.timeEnd|date('H:i:s') : '' }}
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<a href="{{ path('available_spot_index') }}">back to list</a>
+
+<a href="{{ path('available_spot_edit', { id: available_spot.id }) }}">edit</a>
+
+{{ include("available_spot/_delete_form.html.twig") }}
+{% endblock %}

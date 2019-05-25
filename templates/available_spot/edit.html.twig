@@ -1,0 +1,10 @@
+{% extends 'base_back.html.twig' %} {% block title %}Edit AvailableSpot{%
+endblock %} {% block body %}
+<h1>Edit AvailableSpot</h1>
+
+{{ include("available_spot/_form.html.twig", { button_label: "Update" }) }}
+
+<a href="{{ path('available_spot_index') }}">back to list</a>
+
+{{ include("available_spot/_delete_form.html.twig") }}
+{% endblock %}
