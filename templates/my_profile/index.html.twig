@@ -13,16 +13,20 @@
 
         </div>
         <ul class="list-group list-group-flush">
-
             <li class="list-group-item">
-                <b>Last Login</b><br>
+                <b>Avatar</b><br>
+                {% if user.img %}<img src="upload/avatar/{{ user.img }}" alt="{{ user.firstname }} {{ user.lastname }}">{% else %}[IMG]{% endif %}
             </li>
             <li class="list-group-item">
-                <p class="btn-group">
-
+                <b>Bio</b><br>
+                {% if user.bio %}{{ user.bio|nl2br }}{% else %}<i>No bio set</i>{% endif %}
+            </li>
+            <li class="list-group-item">
+                <p>
+                <a href="" class="btn btn-outline-dark">Edit Profile</a>
                 </p>
                 <p>
-                    <a class="btn btn-outline-danger" href="{{ path('app_logout') }}"><i class="fa fa-power-off"></i> Log Out</a>
+                    <a class="btn btn-outline-danger" href="{{ path('app_logout') }}">Log Out</a>
                 </p>
             </li>
         </ul>
