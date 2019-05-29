@@ -32,10 +32,6 @@ class ProfileType extends AbstractType
                 'required' => false,
                 'label' => 'Describe yourself in a few sentences'
             ])
-            ->add('username', TextType::class, [
-                'required' => false,
-                'label' => 'Set a nickname'
-            ])
         ;
     }
 

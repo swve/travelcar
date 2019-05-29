@@ -15,7 +15,11 @@
         <ul class="list-group list-group-flush">
             <li class="list-group-item">
                 <b>Avatar</b><br>
-                {% if user.img %}<img src="upload/avatar/{{ user.img }}" alt="{{ user.firstname }} {{ user.lastname }}">{% else %}[IMG]{% endif %}
+                {% if user.img %}
+                    <img src="upload/avatar/{{ user.img }}" alt="{{ user.firstname }} {{ user.lastname }}">
+                {% else %}
+                    <img src="{{ asset('img/default_avatar.png') }}" alt="{{ user.firstname }} {{ user.lastname }}" width="80px">
+                {% endif %}
             </li>
             <li class="list-group-item">
                 <b>Bio</b><br>
@@ -23,7 +27,7 @@
             </li>
             <li class="list-group-item">
                 <p>
-                <a href="" class="btn btn-outline-dark">Edit Profile</a>
+                <a href="{{ path('profile_edit') }}" class="btn btn-outline-dark">Edit Profile</a>
                 </p>
                 <p>
                     <a class="btn btn-outline-danger" href="{{ path('app_logout') }}">Log Out</a>

@@ -2,8 +2,10 @@
 
 namespace App\Controller;
 
+use App\Form\ProfileType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
@@ -25,10 +27,22 @@ class MyProfileController extends AbstractController
     }
 
     /**
-     * @Route("/edit", name="profile_edit")
+     * @Route("/edit", name="profile_edit", methods={"GET","POST"})
      */
-    public function edit()
+    public function edit(Request $request)
     {
-        //TODO: implement method stub
+        $form = $this->createForm(ProfileType::class, $this->getUser());
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $this->getDoctrine()->getManager()->flush();
+
+            return $this->redirectToRoute('my_profile');
+        }
+
+        return $this->render('my_profile/edit.html.twig', [
+            'user' => $this->getUser(),
+            'form' => $form->createView()
+        ]);
     }
 }
