@@ -17,7 +17,14 @@ security:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
             security: false
         main:
-            anonymous: true
+            anonymous: ~
+            form_login:
+                login_path: app_login
+                check_path: app_login
+                default_target_path: my_profile
+            logout:
+                path: app_logout
+                target: app_login
             guard:
                 authenticators:
                     - App\Security\AppAuthAuthenticator
@@ -36,3 +43,4 @@ security:
     access_control:
         # - { path: ^/admin, roles: ROLE_ADMIN }
         # - { path: ^/profile, roles: ROLE_USER }
+        - { path: ^/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }

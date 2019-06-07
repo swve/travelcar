@@ -1,20 +1,42 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello MyProfileController!{% endblock %}
+{% block title %}My Profile{% endblock %}
 
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
 
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
+<div>
+    <h1>My Profile</h1>
+    <div class="card">
+        <div class="card-body">
+            <h5 class="card-title">{{ user.firstname }} {{ user.lastname }}</h5>
+            <p class="card-text">{{ user.email }}</p>
 
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code><a href="{{ 'E:/UTT/ISI1/LO07/travelcar/src/Controller/MyProfileController.php'|file_link(0) }}">src/Controller/MyProfileController.php</a></code></li>
-        <li>Your template at <code><a href="{{ 'E:/UTT/ISI1/LO07/travelcar/templates/my_profile/index.html.twig'|file_link(0) }}">templates/my_profile/index.html.twig</a></code></li>
-    </ul>
+        </div>
+        <ul class="list-group list-group-flush">
+            <li class="list-group-item">
+                <b>Avatar</b><br>
+                {% if user.img %}
+                    <img src="upload/avatar/{{ user.img }}" alt="{{ user.firstname }} {{ user.lastname }}">
+                {% else %}
+                    <img src="{{ asset('img/default_avatar.png') }}" alt="{{ user.firstname }} {{ user.lastname }}" width="80px">
+                {% endif %}
+            </li>
+            <li class="list-group-item">
+                <b>Bio</b><br>
+                {% if user.bio %}{{ user.bio|nl2br }}{% else %}<i>No bio set</i>{% endif %}
+            </li>
+            <li class="list-group-item">
+                <p>
+                <a href="{{ path('profile_edit') }}" class="btn btn-outline-dark">Edit Profile</a>
+                </p>
+                <p>
+                    <a class="btn btn-outline-danger" href="{{ path('app_logout') }}">Log Out</a>
+                </p>
+            </li>
+        </ul>
+    </div>
+
+
+
 </div>
 {% endblock %}
