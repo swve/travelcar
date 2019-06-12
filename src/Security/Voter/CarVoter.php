@@ -27,7 +27,7 @@ class CarVoter extends Voter
         // ... (check conditions and return true to grant permission) ...
         switch ($attribute) {
             case 'CAR_OWNER':
-                return ($subject->getUser() != $user);
+                return ($subject->getUser() == $user);
                 break;
         }
 
