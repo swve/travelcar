@@ -55,6 +55,8 @@ class MyCarsController extends AbstractController
      */
     public function show(Car $car): Response
     {
+        $this->denyAccessUnlessGranted('CAR_OWNER', $car);
+
         return $this->render('my_cars/show.html.twig', [
             'car' => $car,
         ]);
@@ -65,6 +67,8 @@ class MyCarsController extends AbstractController
      */
     public function edit(Request $request, Car $car): Response
     {
+        $this->denyAccessUnlessGranted('CAR_OWNER', $car);
+
         $form = $this->createForm(MyCarType::class, $car);
         $form->handleRequest($request);
 
@@ -87,6 +91,8 @@ class MyCarsController extends AbstractController
      */
     public function delete(Request $request, Car $car): Response
     {
+        $this->denyAccessUnlessGranted('CAR_OWNER', $car);
+
         if ($this->isCsrfTokenValid('delete'.$car->getId(), $request->request->get('_token'))) {
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->remove($car);
