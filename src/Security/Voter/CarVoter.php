@@ -12,7 +12,7 @@ class CarVoter extends Voter
     {
         // replace with your own logic
         // https://symfony.com/doc/current/security/voters.html
-        return in_array($attribute, ['CAR_EDIT', 'CAR_VIEW', 'CAR_DELETE'])
+        return in_array($attribute, ['CAR_OWNER'])
             && $subject instanceof \App\Entity\Car;
     }
 
