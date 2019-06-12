@@ -2,8 +2,9 @@
 
 namespace App\Form;
 
-use App\Entity\Cars;
+use App\Entity\Car;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -14,7 +15,7 @@ class CarsType extends AbstractType
         $builder
             ->add('label')
             ->add('ref')
-            ->add('user')
+            ->add('user', ChoiceType::class, ['attr' => ['class' => 'selectpicker']])
             ->add('parking')
         ;
     }
@@ -22,7 +23,7 @@ class CarsType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
-            'data_class' => Cars::class,
+            'data_class' => Car::class,
         ]);
     }
 }

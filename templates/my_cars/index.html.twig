@@ -1,20 +1,32 @@
-{% extends 'base.html.twig' %}
+{% extends 'base.html.twig' %} {% block title %}My Cars{% endblock %} {%
+block body %}
+<h1>🚗 Mes Voitures</h1>
 
-{% block title %}Hello MyCarsController!{% endblock %}
+<table class="table">
+  <thead>
+    <tr>
+      <th>Nom</th>
+      <th>Référence</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for car in cars %}
+    <tr>
+      <td>{{ car.label }}</td>
+      <td>{{ car.ref }}</td>
+      <td>
+        <a href="{{ path('my_cars_show', { id: car.id }) }}">voir</a>
+        <a href="{{ path('my_cars_edit', { id: car.id }) }}">modifier</a>
+      </td>
+    </tr>
+    {% else %}
+    <tr>
+      <td colspan="4">Aucune voiture trouvée… Pourquoi-pas en rajouter une&nbsp;? 🚗</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
 
-{% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
-
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
-
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code><a href="{{ 'E:/UTT/ISI1/LO07/travelcar/src/Controller/MyCarsController.php'|file_link(0) }}">src/Controller/MyCarsController.php</a></code></li>
-        <li>Your template at <code><a href="{{ 'E:/UTT/ISI1/LO07/travelcar/templates/my_cars/index.html.twig'|file_link(0) }}">templates/my_cars/index.html.twig</a></code></li>
-    </ul>
-</div>
+<a href="{{ path('my_cars_new') }}">Nouvelle Voiture</a>
 {% endblock %}

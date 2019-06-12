@@ -34,7 +34,7 @@ class Parking
     private $price;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Cars", mappedBy="parking")
+     * @ORM\OneToMany(targetEntity="App\Entity\Car", mappedBy="parking")
      */
     private $cars;
 
@@ -103,14 +103,14 @@ class Parking
     }
 
     /**
-     * @return Collection|Cars[]
+     * @return Collection|Car[]
      */
     public function getCars(): Collection
     {
         return $this->cars;
     }
 
-    public function addCar(Cars $car): self
+    public function addCar(Car $car): self
     {
         if (!$this->cars->contains($car)) {
             $this->cars[] = $car;
@@ -120,7 +120,7 @@ class Parking
         return $this;
     }
 
-    public function removeCar(Cars $car): self
+    public function removeCar(Car $car): self
     {
         if ($this->cars->contains($car)) {
             $this->cars->removeElement($car);

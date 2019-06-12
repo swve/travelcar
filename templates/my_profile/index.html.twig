@@ -10,7 +10,9 @@
         <div class="card-body">
             <h5 class="card-title">{{ user.firstname }} {{ user.lastname }}</h5>
             <p class="card-text">{{ user.email }}</p>
-
+            {% if is_granted('ROLE_ADMIN') %}
+            <p class="card-text"><i>Administrator</i></p>
+            {% endif %}
         </div>
         <ul class="list-group list-group-flush">
             <li class="list-group-item">

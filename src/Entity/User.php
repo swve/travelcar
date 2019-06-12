@@ -27,7 +27,7 @@ class User implements UserInterface
     private $email;
 
     /**
-     * @ORM\Column(type="array")
+     * @ORM\Column(type="json")
      */
     private $roles = [];
 
@@ -63,7 +63,7 @@ class User implements UserInterface
     private $username;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Cars", mappedBy="user")
+     * @ORM\OneToMany(targetEntity="App\Entity\Car", mappedBy="user")
      */
     private $cars;
 
@@ -218,14 +218,14 @@ class User implements UserInterface
     }
 
     /**
-     * @return Collection|Cars[]
+     * @return Collection|Car[]
      */
     public function getCars(): Collection
     {
         return $this->cars;
     }
 
-    public function addCar(Cars $car): self
+    public function addCar(Car $car): self
     {
         if (!$this->cars->contains($car)) {
             $this->cars[] = $car;
@@ -235,7 +235,7 @@ class User implements UserInterface
         return $this;
     }
 
-    public function removeCar(Cars $car): self
+    public function removeCar(Car $car): self
     {
         if ($this->cars->contains($car)) {
             $this->cars->removeElement($car);
@@ -309,8 +309,8 @@ class User implements UserInterface
 
         return $this;
     }
-    public function __toString()
+    public function __toString(): string
     {
-        return (string) $this->getEmail();
+        return $this->getFirstname().' '.$this->getLastname().' ('.$this->getEmail().')';
     }
 }

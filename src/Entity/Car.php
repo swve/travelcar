@@ -7,9 +7,9 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity(repositoryClass="App\Repository\CarsRepository")
+ * @ORM\Entity(repositoryClass="App\Repository\CarRepository")
  */
-class Cars
+class Car
 {
     /**
      * @ORM\Id()
@@ -131,8 +131,8 @@ class Cars
 
         return $this;
     }
-    public function __toString()
+    public function __toString(): string
     {
-        return (string) $this->getLabel();
+        return $this->getUser()->getFirstname().' '.$this->getUser()->getLastname().' - '.$this->getLabel();
     }
 }

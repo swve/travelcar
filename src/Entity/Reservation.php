@@ -27,7 +27,7 @@ class Reservation
     private $parking;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Cars", inversedBy="reservations")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Car", inversedBy="reservations")
      */
     private $car;
 
@@ -80,12 +80,12 @@ class Reservation
         return $this;
     }
 
-    public function getCar(): ?cars
+    public function getCar(): ?Car
     {
         return $this->car;
     }
 
-    public function setCar(?cars $car): self
+    public function setCar(?Car $car): self
     {
         $this->car = $car;
 
