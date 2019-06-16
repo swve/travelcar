@@ -5,9 +5,9 @@ namespace App\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity(repositoryClass="App\Repository\AvailableSpotRepository")
+ * @ORM\Entity(repositoryClass="App\Repository\ParkingSpotRepository")
  */
-class AvailableSpot
+class ParkingSpot
 {
     /**
      * @ORM\Id()
@@ -27,7 +27,7 @@ class AvailableSpot
     private $parking;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Place", inversedBy="availableSpots")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Lieu", inversedBy="availableSpots")
      */
     private $place;
 
@@ -80,12 +80,12 @@ class AvailableSpot
         return $this;
     }
 
-    public function getPlace(): ?place
+    public function getPlace(): ?Lieu
     {
         return $this->place;
     }
 
-    public function setPlace(?place $place): self
+    public function setPlace(?Lieu $place): self
     {
         $this->place = $place;
 

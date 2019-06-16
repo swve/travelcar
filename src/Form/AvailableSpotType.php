@@ -2,7 +2,7 @@
 
 namespace App\Form;
 
-use App\Entity\AvailableSpot;
+use App\Entity\ParkingSpot;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -25,7 +25,7 @@ class AvailableSpotType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
-            'data_class' => AvailableSpot::class,
+            'data_class' => ParkingSpot::class,
             'attr' => [
                 'class' => 'selectpicker'
             ]

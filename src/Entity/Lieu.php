@@ -7,9 +7,9 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity(repositoryClass="App\Repository\PlaceRepository")
+ * @ORM\Entity(repositoryClass="App\Repository\LieuRepository")
  */
-class Place
+class Lieu
 {
     /**
      * @ORM\Id()
@@ -54,7 +54,7 @@ class Place
     private $parkings;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\AvailableSpot", mappedBy="place")
+     * @ORM\OneToMany(targetEntity="App\Entity\ParkingSpot", mappedBy="place")
      */
     private $availableSpots;
 
@@ -173,14 +173,14 @@ class Place
     }
 
     /**
-     * @return Collection|AvailableSpot[]
+     * @return Collection|ParkingSpot[]
      */
     public function getAvailableSpots(): Collection
     {
         return $this->availableSpots;
     }
 
-    public function addAvailableSpot(AvailableSpot $availableSpot): self
+    public function addAvailableSpot(ParkingSpot $availableSpot): self
     {
         if (!$this->availableSpots->contains($availableSpot)) {
             $this->availableSpots[] = $availableSpot;
@@ -190,7 +190,7 @@ class Place
         return $this;
     }
 
-    public function removeAvailableSpot(AvailableSpot $availableSpot): self
+    public function removeAvailableSpot(ParkingSpot $availableSpot): self
     {
         if ($this->availableSpots->contains($availableSpot)) {
             $this->availableSpots->removeElement($availableSpot);
