@@ -34,6 +34,11 @@ class Parking
     private $price;
 
     /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $capacity;
+
+    /**
      * @ORM\OneToMany(targetEntity="App\Entity\Car", mappedBy="parking")
      */
     private $cars;
@@ -98,6 +103,18 @@ class Parking
     public function setPrice(int $price): self
     {
         $this->price = $price;
+
+        return $this;
+    }
+
+    public function getCapacity(): ?int
+    {
+        return $this->capacity;
+    }
+
+    public function setCapacity(?int $capacity): self
+    {
+        $this->capacity = $capacity;
 
         return $this;
     }

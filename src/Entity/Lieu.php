@@ -34,11 +34,6 @@ class Lieu
     private $city;
 
     /**
-     * @ORM\Column(type="integer", nullable=true)
-     */
-    private $capacity;
-
-    /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $address;
@@ -101,18 +96,6 @@ class Lieu
     public function setCity(string $city): self
     {
         $this->city = $city;
-
-        return $this;
-    }
-
-    public function getCapacity(): ?int
-    {
-        return $this->capacity;
-    }
-
-    public function setCapacity(?int $capacity): self
-    {
-        $this->capacity = $capacity;
 
         return $this;
     }

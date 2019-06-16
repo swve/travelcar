@@ -15,10 +15,7 @@ class AvailableSpotType extends AbstractType
             ->add('code')
             ->add('date_start')
             ->add('date_end')
-            ->add('time_start')
-            ->add('time_end')
             ->add('parking')
-            ->add('place')
         ;
     }
 

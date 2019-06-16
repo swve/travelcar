@@ -14,10 +14,9 @@ class ReservationType extends AbstractType
         $builder
             ->add('date_start')
             ->add('date_end')
-            ->add('time_start')
-            ->add('time_end')
             ->add('user')
             ->add('parking')
+            ->add('spot')
             ->add('car')
         ;
     }

@@ -14,7 +14,6 @@ class PlaceType extends AbstractType
         $builder
             ->add('title')
             ->add('city')
-            ->add('capacity')
             ->add('address')
             ->add('position')
             ->add('type')

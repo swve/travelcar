@@ -8,8 +8,7 @@ endblock %} {% block body %}
       <th>Id</th>
       <th>Date_start</th>
       <th>Date_end</th>
-      <th>Time_start</th>
-      <th>Time_end</th>
+      <th>Place de parking</th>
       <th>actions</th>
     </tr>
   </thead>
@@ -23,12 +22,7 @@ endblock %} {% block body %}
       <td>
         {{ reservation.dateEnd ? reservation.dateEnd|date('Y-m-d') : '' }}
       </td>
-      <td>
-        {{ reservation.timeStart ? reservation.timeStart|date('H:i:s') : '' }}
-      </td>
-      <td>
-        {{ reservation.timeEnd ? reservation.timeEnd|date('H:i:s') : '' }}
-      </td>
+      <td>{{ reservation.spot.code }}</td>
       <td>
         <a href="{{ path('reservation_show', { id: reservation.id }) }}"
           >show</a

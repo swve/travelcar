@@ -42,14 +42,10 @@ class Reservation
     private $date_end;
 
     /**
-     * @ORM\Column(type="time", nullable=true)
+     * @ORM\ManyToOne(targetEntity="App\Entity\ParkingSpot", inversedBy="reservations")
+     * @ORM\JoinColumn(nullable=false)
      */
-    private $time_start;
-
-    /**
-     * @ORM\Column(type="time", nullable=true)
-     */
-    private $time_end;
+    private $spot;
 
     public function getId(): ?int
     {
@@ -116,26 +112,14 @@ class Reservation
         return $this;
     }
 
-    public function getTimeStart(): ?\DateTimeInterface
+    public function getSpot(): ?ParkingSpot
     {
-        return $this->time_start;
+        return $this->spot;
     }
 
-    public function setTimeStart(?\DateTimeInterface $time_start): self
+    public function setSpot(?ParkingSpot $spot): self
     {
-        $this->time_start = $time_start;
-
-        return $this;
-    }
-
-    public function getTimeEnd(): ?\DateTimeInterface
-    {
-        return $this->time_end;
-    }
-
-    public function setTimeEnd(?\DateTimeInterface $time_end): self
-    {
-        $this->time_end = $time_end;
+        $this->spot = $spot;
 
         return $this;
     }

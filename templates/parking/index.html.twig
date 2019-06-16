@@ -7,6 +7,7 @@
     <tr>
       <th>Id</th>
       <th>Title</th>
+      <th>Capacité</th>
       <th>Price</th>
       <th>actions</th>
     </tr>
@@ -16,6 +17,7 @@
     <tr>
       <td>{{ parking.id }}</td>
       <td>{{ parking.title }}</td>
+      <td>{{ parking.capacity }}</td>
       <td>{{ parking.price }}</td>
       <td>
         <a href="{{ path('parking_show', { id: parking.id }) }}">show</a>

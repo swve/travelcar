@@ -1,9 +1,9 @@
 {% extends 'base_back.html.twig' %}
 
-{% block title %}Place index{% endblock %}
+{% block title %}Lieux index{% endblock %}
 
 {% block body %}
-    <h1>Place index</h1>
+    <h1>Lieux</h1>
 
     <table class="table">
         <thead>
@@ -11,7 +11,6 @@
                 <th>Id</th>
                 <th>Title</th>
                 <th>City</th>
-                <th>Capacity</th>
                 <th>Address</th>
                 <th>Position</th>
                 <th>Type</th>
@@ -25,7 +24,6 @@
                 <td>{{ place.id }}</td>
                 <td>{{ place.title }}</td>
                 <td>{{ place.city }}</td>
-                <td>{{ place.capacity }}</td>
                 <td>{{ place.address }}</td>
                 <td>{{ place.position }}</td>
                 <td>{{ place.type }}</td>

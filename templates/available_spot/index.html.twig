@@ -9,8 +9,6 @@ endblock %} {% block body %}
       <th>Code</th>
       <th>Date_start</th>
       <th>Date_end</th>
-      <th>Time_start</th>
-      <th>Time_end</th>
       <th>actions</th>
     </tr>
   </thead>
@@ -24,12 +22,6 @@ endblock %} {% block body %}
       </td>
       <td>
         {{ available_spot.dateEnd ? available_spot.dateEnd|date('Y-m-d') : '' }}
-      </td>
-      <td>
-        {{ available_spot.timeStart ? available_spot.timeStart|date('H:i:s') : '' }}
-      </td>
-      <td>
-        {{ available_spot.timeEnd ? available_spot.timeEnd|date('H:i:s') : '' }}
       </td>
       <td>
         <a href="{{ path('available_spot_show', { id: available_spot.id }) }}"
