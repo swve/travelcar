@@ -17,8 +17,8 @@
         <ul class="list-group list-group-flush">
             <li class="list-group-item">
                 <b>Avatar</b><br>
-                {% if user.img %}
-                    <img src="upload/avatar/{{ user.img }}" alt="{{ user.firstname }} {{ user.lastname }}">
+                {% if user.imageName %}
+                    <img src="{{ vich_uploader_asset(user, 'imageFile') }}" alt="{{ user.firstname }} {{ user.lastname }}" width="80px">
                 {% else %}
                     <img src="{{ asset('img/default_avatar.png') }}" alt="{{ user.firstname }} {{ user.lastname }}" width="80px">
                 {% endif %}
