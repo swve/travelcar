@@ -2,9 +2,9 @@
 
 namespace App\Controller\Back;
 
-use App\Entity\Place;
+use App\Entity\Lieu;
 use App\Form\PlaceType;
-use App\Repository\PlaceRepository;
+use App\Repository\LieuRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -18,7 +18,7 @@ class PlaceController extends AbstractController
     /**
      * @Route("/", name="place_index", methods={"GET"})
      */
-    public function index(PlaceRepository $placeRepository): Response
+    public function index(LieuRepository $placeRepository): Response
     {
         return $this->render('place/index.html.twig', [
             'places' => $placeRepository->findAll(),
@@ -30,7 +30,7 @@ class PlaceController extends AbstractController
      */
     public function new(Request $request): Response
     {
-        $place = new Place();
+        $place = new Lieu();
         $form = $this->createForm(PlaceType::class, $place);
         $form->handleRequest($request);
 
@@ -51,7 +51,7 @@ class PlaceController extends AbstractController
     /**
      * @Route("/{id}", name="place_show", methods={"GET"})
      */
-    public function show(Place $place): Response
+    public function show(Lieu $place): Response
     {
         return $this->render('place/show.html.twig', [
             'place' => $place,
@@ -61,7 +61,7 @@ class PlaceController extends AbstractController
     /**
      * @Route("/{id}/edit", name="place_edit", methods={"GET","POST"})
      */
-    public function edit(Request $request, Place $place): Response
+    public function edit(Request $request, Lieu $place): Response
     {
         $form = $this->createForm(PlaceType::class, $place);
         $form->handleRequest($request);
@@ -83,7 +83,7 @@ class PlaceController extends AbstractController
     /**
      * @Route("/{id}", name="place_delete", methods={"DELETE"})
      */
-    public function delete(Request $request, Place $place): Response
+    public function delete(Request $request, Lieu $place): Response
     {
         if ($this->isCsrfTokenValid('delete'.$place->getId(), $request->request->get('_token'))) {
             $entityManager = $this->getDoctrine()->getManager();

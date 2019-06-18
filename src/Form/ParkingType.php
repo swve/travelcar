@@ -13,6 +13,7 @@ class ParkingType extends AbstractType
     {
         $builder
             ->add('title')
+            ->add('capacity')
             ->add('price')
             ->add('place')
         ;

@@ -24,7 +24,7 @@ class Parking
     private $title;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Place", inversedBy="parkings")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Lieu", inversedBy="parkings")
      */
     private $place;
 
@@ -34,12 +34,17 @@ class Parking
     private $price;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Cars", mappedBy="parking")
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $capacity;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Car", mappedBy="parking")
      */
     private $cars;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\AvailableSpot", mappedBy="parking")
+     * @ORM\OneToMany(targetEntity="App\Entity\ParkingSpot", mappedBy="parking")
      */
     private $availableSpots;
 
@@ -78,12 +83,12 @@ class Parking
         return $this;
     }
 
-    public function getPlace(): ?place
+    public function getPlace(): ?Lieu
     {
         return $this->place;
     }
 
-    public function setPlace(?place $place): self
+    public function setPlace(?Lieu $place): self
     {
         $this->place = $place;
 
@@ -102,15 +107,27 @@ class Parking
         return $this;
     }
 
+    public function getCapacity(): ?int
+    {
+        return $this->capacity;
+    }
+
+    public function setCapacity(?int $capacity): self
+    {
+        $this->capacity = $capacity;
+
+        return $this;
+    }
+
     /**
-     * @return Collection|Cars[]
+     * @return Collection|Car[]
      */
     public function getCars(): Collection
     {
         return $this->cars;
     }
 
-    public function addCar(Cars $car): self
+    public function addCar(Car $car): self
     {
         if (!$this->cars->contains($car)) {
             $this->cars[] = $car;
@@ -120,7 +137,7 @@ class Parking
         return $this;
     }
 
-    public function removeCar(Cars $car): self
+    public function removeCar(Car $car): self
     {
         if ($this->cars->contains($car)) {
             $this->cars->removeElement($car);
@@ -134,14 +151,14 @@ class Parking
     }
 
     /**
-     * @return Collection|AvailableSpot[]
+     * @return Collection|ParkingSpot[]
      */
     public function getAvailableSpots(): Collection
     {
         return $this->availableSpots;
     }
 
-    public function addAvailableSpot(AvailableSpot $availableSpot): self
+    public function addAvailableSpot(ParkingSpot $availableSpot): self
     {
         if (!$this->availableSpots->contains($availableSpot)) {
             $this->availableSpots[] = $availableSpot;
@@ -151,7 +168,7 @@ class Parking
         return $this;
     }
 
-    public function removeAvailableSpot(AvailableSpot $availableSpot): self
+    public function removeAvailableSpot(ParkingSpot $availableSpot): self
     {
         if ($this->availableSpots->contains($availableSpot)) {
             $this->availableSpots->removeElement($availableSpot);

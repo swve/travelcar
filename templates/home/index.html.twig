@@ -4,20 +4,43 @@
 
 {% block body %}
 
-<div class="jumbotron jumbotron-fluid">
+<div class="jumbotron jumbotron-fluid" style="
+padding: 36px;
+border-radius: 20px;
+background-color: #e7e7e7;
+box-shadow: 0px 11px 9px 0 rgba(60, 64, 67, 0.13), 0 1px 3px 1px rgba(60, 64, 67, 0.15);">
     <div class="container">
         <h1 class="display-4">TravelCar</h1>
         <p class="lead">La solution parfaite pour vos vacances </p>
-        <form action="" method="post">
-           Lieu de stationnement <input type="text" name="" id=""> <br>
-           Date de début <input type="date" name="" id=""> <input type="time" name="" id=""> <br>
-           Date de fin <input type="date" name="" id=""> <input type="time" name="" id="">
-        </form>
+       {% if app.user %}
+            {{ include("reservation/my/_search._form.html.twig", { button_label: "C'est parti !" }) }}
+        {% else %}
+        <h3>Vous devez vous connecter afin de pouvoir chercher une réservation</h3>
+        {% endif %}
     </div>
+    
+
 </div>
 <br>
 <div class="container">
     <h1>Comment ça marche</h1>
-    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Alias totam asperiores vero voluptates! Quo debitis accusamus dolor natus praesentium, animi mollitia itaque. Quas aliquam deleniti consequatur neque eos tempore at!</p>
+    <p>
+        Travelcar est une plateforme de reservation de places de parking partout en france dévelopée par des étudiants de l'UTT
+    </p>
 </div>
+{% endblock %}
+{% block javascripts %}
+    <script>
+        let userCars = [];
+
+        {% for car in app.user.cars %}
+        userCars.push("{{ car.id }}");
+        {% endfor %}
+
+        $('select > option').each(function() {
+            if (!userCars.includes(this.value)) {
+                $(this).remove();
+            }
+        });
+    </script>
 {% endblock %}

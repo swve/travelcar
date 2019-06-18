@@ -7,9 +7,9 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity(repositoryClass="App\Repository\PlaceRepository")
+ * @ORM\Entity(repositoryClass="App\Repository\LieuRepository")
  */
-class Place
+class Lieu
 {
     /**
      * @ORM\Id()
@@ -34,11 +34,6 @@ class Place
     private $city;
 
     /**
-     * @ORM\Column(type="integer", nullable=true)
-     */
-    private $capacity;
-
-    /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $address;
@@ -54,7 +49,7 @@ class Place
     private $parkings;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\AvailableSpot", mappedBy="place")
+     * @ORM\OneToMany(targetEntity="App\Entity\ParkingSpot", mappedBy="place")
      */
     private $availableSpots;
 
@@ -101,18 +96,6 @@ class Place
     public function setCity(string $city): self
     {
         $this->city = $city;
-
-        return $this;
-    }
-
-    public function getCapacity(): ?int
-    {
-        return $this->capacity;
-    }
-
-    public function setCapacity(?int $capacity): self
-    {
-        $this->capacity = $capacity;
 
         return $this;
     }
@@ -173,14 +156,14 @@ class Place
     }
 
     /**
-     * @return Collection|AvailableSpot[]
+     * @return Collection|ParkingSpot[]
      */
     public function getAvailableSpots(): Collection
     {
         return $this->availableSpots;
     }
 
-    public function addAvailableSpot(AvailableSpot $availableSpot): self
+    public function addAvailableSpot(ParkingSpot $availableSpot): self
     {
         if (!$this->availableSpots->contains($availableSpot)) {
             $this->availableSpots[] = $availableSpot;
@@ -190,7 +173,7 @@ class Place
         return $this;
     }
 
-    public function removeAvailableSpot(AvailableSpot $availableSpot): self
+    public function removeAvailableSpot(ParkingSpot $availableSpot): self
     {
         if ($this->availableSpots->contains($availableSpot)) {
             $this->availableSpots->removeElement($availableSpot);

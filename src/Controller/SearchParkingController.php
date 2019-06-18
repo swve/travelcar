@@ -8,7 +8,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class SearchParkingController extends AbstractController
 {
     /**
-     * @Route("/search/parking", name="search_parking")
+     * @Route("/recherche/parking", name="search_parking")
      */
     public function index()
     {

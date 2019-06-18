@@ -2,9 +2,9 @@
 
 namespace App\Controller\Back;
 
-use App\Entity\Cars;
+use App\Entity\Car;
 use App\Form\CarsType;
-use App\Repository\CarsRepository;
+use App\Repository\CarRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -18,10 +18,10 @@ class CarsController extends AbstractController
     /**
      * @Route("/", name="cars_index", methods={"GET"})
      */
-    public function index(CarsRepository $carsRepository): Response
+    public function index(CarRepository $carRepository): Response
     {
         return $this->render('cars/index.html.twig', [
-            'cars' => $carsRepository->findAll(),
+            'cars' => $carRepository->findAll(),
         ]);
     }
 
@@ -30,7 +30,7 @@ class CarsController extends AbstractController
      */
     public function new(Request $request): Response
     {
-        $car = new Cars();
+        $car = new Car();
         $form = $this->createForm(CarsType::class, $car);
         $form->handleRequest($request);
 
@@ -51,7 +51,7 @@ class CarsController extends AbstractController
     /**
      * @Route("/{id}", name="cars_show", methods={"GET"})
      */
-    public function show(Cars $car): Response
+    public function show(Car $car): Response
     {
         return $this->render('cars/show.html.twig', [
             'car' => $car,
@@ -61,7 +61,7 @@ class CarsController extends AbstractController
     /**
      * @Route("/{id}/edit", name="cars_edit", methods={"GET","POST"})
      */
-    public function edit(Request $request, Cars $car): Response
+    public function edit(Request $request, Car $car): Response
     {
         $form = $this->createForm(CarsType::class, $car);
         $form->handleRequest($request);
@@ -83,7 +83,7 @@ class CarsController extends AbstractController
     /**
      * @Route("/{id}", name="cars_delete", methods={"DELETE"})
      */
-    public function delete(Request $request, Cars $car): Response
+    public function delete(Request $request, Car $car): Response
     {
         if ($this->isCsrfTokenValid('delete'.$car->getId(), $request->request->get('_token'))) {
             $entityManager = $this->getDoctrine()->getManager();

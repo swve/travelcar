@@ -24,7 +24,7 @@ class Placetype
     private $title;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Place", mappedBy="type")
+     * @ORM\OneToMany(targetEntity="App\Entity\Lieu", mappedBy="type")
      */
     private $places;
 
@@ -51,14 +51,14 @@ class Placetype
     }
 
     /**
-     * @return Collection|Place[]
+     * @return Collection|Lieu[]
      */
     public function getPlaces(): Collection
     {
         return $this->places;
     }
 
-    public function addPlace(Place $place): self
+    public function addPlace(Lieu $place): self
     {
         if (!$this->places->contains($place)) {
             $this->places[] = $place;
@@ -68,7 +68,7 @@ class Placetype
         return $this;
     }
 
-    public function removePlace(Place $place): self
+    public function removePlace(Lieu $place): self
     {
         if ($this->places->contains($place)) {
             $this->places->removeElement($place);

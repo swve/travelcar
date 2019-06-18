@@ -2,7 +2,7 @@
 
 namespace App\Form;
 
-use App\Entity\Place;
+use App\Entity\Lieu;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -14,7 +14,6 @@ class PlaceType extends AbstractType
         $builder
             ->add('title')
             ->add('city')
-            ->add('capacity')
             ->add('address')
             ->add('position')
             ->add('type')
@@ -24,7 +23,7 @@ class PlaceType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
-            'data_class' => Place::class,
+            'data_class' => Lieu::class,
         ]);
     }
 }

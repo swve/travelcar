@@ -2,9 +2,11 @@
 
 namespace App\Controller\Back;
 
+use App\Entity\Car;
 use App\Entity\Reservation;
 use App\Form\ReservationType;
 use App\Repository\ReservationRepository;
+use Carbon\Carbon;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -36,6 +38,15 @@ class ReservationController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager = $this->getDoctrine()->getManager();
+
+            $start = Carbon::instance($reservation->getDateStart());
+
+            $days = $start->diffInDays($reservation->getDateEnd())+1;
+
+            $price = $reservation->getParking()->getPrice() * $days;
+
+            $reservation->setPrix($price);
+
             $entityManager->persist($reservation);
             $entityManager->flush();
 
@@ -67,6 +78,14 @@ class ReservationController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+
+            $start = Carbon::instance($reservation->getDateStart());
+
+            $days = $start->diffInDays($reservation->getDateEnd())+1;
+
+            $price = $reservation->getParking()->getPrice() * $days;
+
+            $reservation->setPrix($price);
             $this->getDoctrine()->getManager()->flush();
 
             return $this->redirectToRoute('reservation_index', [

@@ -7,16 +7,21 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\HttpFoundation\File\File;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
+use \Serializable;
+use \DateTimeImmutable;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\UserRepository")
  * @UniqueEntity(fields={"email"}, message="There is already an account with this email")
+ * @Vich\Uploadable
  */
-class User implements UserInterface
+class User implements UserInterface, Serializable
 {
     /**
      * @ORM\Id()
-     * @ORM\GeneratedValue()
+     * @ORM\GeneratedValue(strategy="AUTO")
      * @ORM\Column(type="integer")
      */
     private $id;
@@ -27,7 +32,7 @@ class User implements UserInterface
     private $email;
 
     /**
-     * @ORM\Column(type="array")
+     * @ORM\Column(type="json")
      */
     private $roles = [];
 
@@ -48,9 +53,34 @@ class User implements UserInterface
     private $lastname;
 
     /**
-     * @ORM\Column(type="string", length=255, nullable=true)
+     * NOTE: This is not a mapped field of entity metadata, just a simple property.
+     *
+     * @Vich\UploadableField(mapping="avatars", fileNameProperty="imageName", size="imageSize")
+     *
+     * @var File
      */
-    private $img;
+    private $imageFile;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     *
+     * @var string
+     */
+    private $imageName;
+
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     *
+     * @var integer
+     */
+    private $imageSize;
+
+    /**
+     * @ORM\Column(type="datetime", nullable=true)
+     *
+     * @var \DateTime
+     */
+    private $updatedAt;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
@@ -63,7 +93,7 @@ class User implements UserInterface
     private $username;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Cars", mappedBy="user")
+     * @ORM\OneToMany(targetEntity="App\Entity\Car", mappedBy="user")
      */
     private $cars;
 
@@ -186,18 +216,6 @@ class User implements UserInterface
         return $this;
     }
 
-    public function getImg(): ?string
-    {
-        return $this->img;
-    }
-
-    public function setImg(?string $img): self
-    {
-        $this->img = $img;
-
-        return $this;
-    }
-
     public function getBio(): ?string
     {
         return $this->bio;
@@ -218,14 +236,14 @@ class User implements UserInterface
     }
 
     /**
-     * @return Collection|Cars[]
+     * @return Collection|Car[]
      */
     public function getCars(): Collection
     {
         return $this->cars;
     }
 
-    public function addCar(Cars $car): self
+    public function addCar(Car $car): self
     {
         if (!$this->cars->contains($car)) {
             $this->cars[] = $car;
@@ -235,7 +253,7 @@ class User implements UserInterface
         return $this;
     }
 
-    public function removeCar(Cars $car): self
+    public function removeCar(Car $car): self
     {
         if ($this->cars->contains($car)) {
             $this->cars->removeElement($car);
@@ -309,8 +327,95 @@ class User implements UserInterface
 
         return $this;
     }
-    public function __toString()
+
+    /**
+     * If manually uploading a file (i.e. not using Symfony Form) ensure an instance
+     * of 'UploadedFile' is injected into this setter to trigger the update. If this
+     * bundle's configuration parameter 'inject_on_load' is set to 'true' this setter
+     * must be able to accept an instance of 'File' as the bundle will inject one here
+     * during Doctrine hydration.
+     *
+     * @param File|\Symfony\Component\HttpFoundation\File\UploadedFile $imageFile
+     */
+    public function setImageFile(?File $imageFile = null): void
     {
-        return (string) $this->getEmail();
+        $this->imageFile = $imageFile;
+
+        if (null !== $imageFile) {
+            // It is required that at least one field changes if you are using doctrine
+            // otherwise the event listeners won't be called and the file is lost
+            $this->updatedAt = new DateTimeImmutable();
+        }
+    }
+
+    public function getImageFile(): ?File
+    {
+        return $this->imageFile;
+    }
+
+    public function setImageName(?string $imageName): void
+    {
+        $this->imageName = $imageName;
+    }
+
+    public function getImageName(): ?string
+    {
+        return $this->imageName;
+    }
+
+    public function setImageSize(?int $imageSize): void
+    {
+        $this->imageSize = $imageSize;
+    }
+
+    public function getImageSize(): ?int
+    {
+        return $this->imageSize;
+    }
+
+    /**
+     * @see \Serializable::serialize()
+     */
+    public function serialize(): string
+    {
+        return serialize([
+            $this->id,
+            $this->email,
+            $this->firstname,
+            $this->lastname,
+            $this->cars,
+            $this->reservations,
+            $this->parkreviews,
+            $this->bio,
+            $this->password,
+            $this->roles,
+            $this->imageName,
+            $this->updatedAt
+        ]);
+    }
+    /**
+     * @see \Serializable::unserialize()
+     */
+    public function unserialize($serialized): void
+    {
+        list(
+            $this->id,
+            $this->email,
+            $this->firstname,
+            $this->lastname,
+            $this->cars,
+            $this->reservations,
+            $this->parkreviews,
+            $this->bio,
+            $this->password,
+            $this->roles,
+            $this->imageName,
+            $this->updatedAt) = unserialize($serialized);
+    }
+
+
+    public function __toString(): string
+    {
+        return $this->getFirstname().' '.$this->getLastname().' ('.$this->getEmail().')';
     }
 }

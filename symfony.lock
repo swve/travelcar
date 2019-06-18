@@ -1,4 +1,7 @@
 {
+    "behat/transliterator": {
+        "version": "v1.2.0"
+    },
     "doctrine/annotations": {
         "version": "1.0",
         "recipe": {
@@ -108,8 +111,14 @@
     "jdorn/sql-formatter": {
         "version": "v1.2.17"
     },
+    "jms/metadata": {
+        "version": "2.0.0"
+    },
     "monolog/monolog": {
         "version": "1.24.0"
+    },
+    "nesbot/carbon": {
+        "version": "2.19.2"
     },
     "nikic/php-parser": {
         "version": "v4.2.1"
@@ -137,9 +146,6 @@
     },
     "psr/log": {
         "version": "1.1.0"
-    },
-    "psr/simple-cache": {
-        "version": "1.0.1"
     },
     "sensio/framework-extra-bundle": {
         "version": "5.2",
@@ -263,6 +269,9 @@
             "./src/Kernel.php"
         ]
     },
+    "symfony/http-client": {
+        "version": "v4.3.1"
+    },
     "symfony/http-foundation": {
         "version": "v4.2.4"
     },
@@ -283,6 +292,9 @@
             "version": "1.0",
             "ref": "fadbfe33303a76e25cb63401050439aa9b1a9c7f"
         }
+    },
+    "symfony/mime": {
+        "version": "v4.3.1"
     },
     "symfony/monolog-bridge": {
         "version": "v4.2.4"
@@ -336,6 +348,9 @@
         "version": "v1.11.0"
     },
     "symfony/polyfill-php72": {
+        "version": "v1.11.0"
+    },
+    "symfony/polyfill-php73": {
         "version": "v1.11.0"
     },
     "symfony/process": {
@@ -411,6 +426,9 @@
             "./config/packages/swiftmailer.yaml",
             "./config/packages/test/swiftmailer.yaml"
         ]
+    },
+    "symfony/templating": {
+        "version": "v4.3.1"
     },
     "symfony/test-pack": {
         "version": "v1.0.5"
@@ -494,6 +512,18 @@
     },
     "twig/twig": {
         "version": "v2.7.4"
+    },
+    "vich/uploader-bundle": {
+        "version": "1.5",
+        "recipe": {
+            "repo": "github.com/symfony/recipes-contrib",
+            "branch": "master",
+            "version": "1.5",
+            "ref": "c4f5755b37fb65b9c6a3cbdae91205c15a137ed4"
+        },
+        "files": [
+            "config/packages/vich_uploader.yaml"
+        ]
     },
     "webmozart/assert": {
         "version": "1.4.0"

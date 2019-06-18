@@ -2,9 +2,9 @@
 
 namespace App\Controller\Back;
 
-use App\Entity\AvailableSpot;
+use App\Entity\ParkingSpot;
 use App\Form\AvailableSpotType;
-use App\Repository\AvailableSpotRepository;
+use App\Repository\ParkingSpotRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -13,12 +13,12 @@ use Symfony\Component\Routing\Annotation\Route;
 /**
  * @Route("back/available_spots")
  */
-class AvailableSpotController extends AbstractController
+class ParkingSpotController extends AbstractController
 {
     /**
      * @Route("/", name="available_spot_index", methods={"GET"})
      */
-    public function index(AvailableSpotRepository $availableSpotRepository): Response
+    public function index(ParkingSpotRepository $availableSpotRepository): Response
     {
         return $this->render('available_spot/index.html.twig', [
             'available_spots' => $availableSpotRepository->findAll(),
@@ -30,7 +30,7 @@ class AvailableSpotController extends AbstractController
      */
     public function new(Request $request): Response
     {
-        $availableSpot = new AvailableSpot();
+        $availableSpot = new ParkingSpot();
         $form = $this->createForm(AvailableSpotType::class, $availableSpot);
         $form->handleRequest($request);
 
@@ -51,7 +51,7 @@ class AvailableSpotController extends AbstractController
     /**
      * @Route("/{id}", name="available_spot_show", methods={"GET"})
      */
-    public function show(AvailableSpot $availableSpot): Response
+    public function show(ParkingSpot $availableSpot): Response
     {
         return $this->render('available_spot/show.html.twig', [
             'available_spot' => $availableSpot,
@@ -61,7 +61,7 @@ class AvailableSpotController extends AbstractController
     /**
      * @Route("/{id}/edit", name="available_spot_edit", methods={"GET","POST"})
      */
-    public function edit(Request $request, AvailableSpot $availableSpot): Response
+    public function edit(Request $request, ParkingSpot $availableSpot): Response
     {
         $form = $this->createForm(AvailableSpotType::class, $availableSpot);
         $form->handleRequest($request);
@@ -83,7 +83,7 @@ class AvailableSpotController extends AbstractController
     /**
      * @Route("/{id}", name="available_spot_delete", methods={"DELETE"})
      */
-    public function delete(Request $request, AvailableSpot $availableSpot): Response
+    public function delete(Request $request, ParkingSpot $availableSpot): Response
     {
         if ($this->isCsrfTokenValid('delete'.$availableSpot->getId(), $request->request->get('_token'))) {
             $entityManager = $this->getDoctrine()->getManager();

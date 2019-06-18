@@ -3,8 +3,10 @@
 namespace App\Controller\Back;
 
 use App\Entity\Parking;
+use App\Entity\ParkingSpot;
 use App\Form\ParkingType;
 use App\Repository\ParkingRepository;
+use Carbon\Carbon;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -36,6 +38,15 @@ class ParkingController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager = $this->getDoctrine()->getManager();
+
+            for ($k = 0 ; $k < $request->request->get('parking')['capacity']; $k++) {
+                $newSpot = new ParkingSpot();
+                $newSpot->setParking($parking);
+                $newSpot->setCode($parking->getTitle().'_'.$k);
+                $newSpot->setDateStart(Carbon::now());
+                $newSpot->setDateEnd(Carbon::maxValue());
+                $entityManager->persist($newSpot);
+            }
             $entityManager->persist($parking);
             $entityManager->flush();
 

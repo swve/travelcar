@@ -27,7 +27,7 @@ class Reservation
     private $parking;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Cars", inversedBy="reservations")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Car", inversedBy="reservations")
      */
     private $car;
 
@@ -42,14 +42,15 @@ class Reservation
     private $date_end;
 
     /**
-     * @ORM\Column(type="time", nullable=true)
+     * @ORM\ManyToOne(targetEntity="App\Entity\ParkingSpot", inversedBy="reservations")
+     * @ORM\JoinColumn(nullable=false)
      */
-    private $time_start;
+    private $spot;
 
     /**
-     * @ORM\Column(type="time", nullable=true)
+     * @ORM\Column(type="float")
      */
-    private $time_end;
+    private $prix;
 
     public function getId(): ?int
     {
@@ -80,12 +81,12 @@ class Reservation
         return $this;
     }
 
-    public function getCar(): ?cars
+    public function getCar(): ?Car
     {
         return $this->car;
     }
 
-    public function setCar(?cars $car): self
+    public function setCar(?Car $car): self
     {
         $this->car = $car;
 
@@ -116,26 +117,26 @@ class Reservation
         return $this;
     }
 
-    public function getTimeStart(): ?\DateTimeInterface
+    public function getSpot(): ?ParkingSpot
     {
-        return $this->time_start;
+        return $this->spot;
     }
 
-    public function setTimeStart(?\DateTimeInterface $time_start): self
+    public function setSpot(?ParkingSpot $spot): self
     {
-        $this->time_start = $time_start;
+        $this->spot = $spot;
 
         return $this;
     }
 
-    public function getTimeEnd(): ?\DateTimeInterface
+    public function getPrix(): ?float
     {
-        return $this->time_end;
+        return $this->prix;
     }
 
-    public function setTimeEnd(?\DateTimeInterface $time_end): self
+    public function setPrix(float $prix): self
     {
-        $this->time_end = $time_end;
+        $this->prix = $prix;
 
         return $this;
     }

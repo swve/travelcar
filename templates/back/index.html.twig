@@ -3,5 +3,84 @@
 {% block title %}Hello BackController!{% endblock %}
 
 {% block body %}
-Ceci est l'administration
+<div class="container-fluid">
+    <h1>Bienvenue à l'administration</h1>
+    <hr>
+    <br>
+  
+    <div class="row">
+        <div class="col-6 bg-dark" style="padding: 20px;border-radius:10px;margin-right: 10px;">
+            <h3>Reservations : </h3> 
+            <table class="table">
+                <thead>
+                  <tr>
+                    <th>Id</th>
+                    <th>Date_start</th>
+                    <th>Date_end</th>
+                    <th>Place</th>
+                    <th>Prix</th>
+                    <th>actions</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {% for reservation in reservations %}
+                  <tr>
+                    <td>{{ reservation.id }}</td>
+                    <td>
+                      {{ reservation.dateStart ? reservation.dateStart|date('Y-m-d') : '' }}
+                    </td>
+                    <td>
+                      {{ reservation.dateEnd ? reservation.dateEnd|date('Y-m-d') : '' }}
+                    </td>
+                    <td>{{ reservation.spot.code }}</td>
+                    <td>{{ reservation.prix }} EUR</td>
+                    <td>
+                      <a href="{{ path('reservation_show', { id: reservation.id }) }}"
+                        >show</a
+                      >
+                      <a href="{{ path('reservation_edit', { id: reservation.id }) }}"
+                        >edit</a
+                      >
+                    </td>
+                  </tr>
+                  {% else %}
+                  <tr>
+                    <td colspan="6">no records found</td>
+                  </tr>
+                  {% endfor %}
+                </tbody>
+              </table>
+        </div>
+        <div class="col-5 bg-dark" style="padding: 20px;border-radius:10px">
+                <h3>Avis sur parkings : </h3> 
+                <table class="table">
+                        <thead>
+                          <tr>
+                            <th>Id</th>
+                            <th>Starts</th>
+                            <th>Comment</th>
+                            <th>actions</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          {% for parkreview in parkreviews %}
+                          <tr>
+                            <td>{{ parkreview.id }}</td>
+                            <td>{{ parkreview.starts }}</td>
+                            <td>{{ parkreview.comment }}</td>
+                            <td>
+                              <a href="{{ path('parkreview_show', { id: parkreview.id }) }}">show</a>
+                              <a href="{{ path('parkreview_edit', { id: parkreview.id }) }}">edit</a>
+                            </td>
+                          </tr>
+                          {% else %}
+                          <tr>
+                            <td colspan="4">no records found</td>
+                          </tr>
+                          {% endfor %}
+                        </tbody>
+                      </table>
+        </div>
+    </div>
+</div>
 {% endblock %}
