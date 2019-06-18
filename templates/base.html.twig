@@ -44,7 +44,13 @@
       </div>
       <div class="login navbar-nav my-lg-0">
         {% if is_granted('ROLE_USER') %}
+        {% if app.user.imageName %}
+            <img src="{{ vich_uploader_asset(app.user, 'imageFile') }}" alt="{{ app.user.firstname }} {{ app.user.lastname }}" class="d-inline-block align-top rounded" style="width: 43px;">
+        {% else %}
+            <img src="{{ asset('img/default_avatar.png') }}" alt="{{ user.firstname }} {{ user.lastname }}" class="d-inline-block align-top rounded" style="width: 43px;" >
+        {% endif %}
         <li class="nav-item dropdown">
+            
           <a
             class="nav-link dropdown-toggle"
             href="{{ path('my_profile') }}"
@@ -56,6 +62,7 @@
             {{ app.user.firstname }} {{ app.user.lastname }}
           </a>
           <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+              <a class="dropdown-item" href="{{ path('my_profile') }}">Mon profil</a>
             <a class="dropdown-item" href="{{ path('app_logout') }}">Déconnexion</a>
             <div class="dropdown-divider"></div>
             <a class="dropdown-item" href="{{ path('back') }}"> 🚧 Administration</a>
