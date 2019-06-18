@@ -1,75 +1,75 @@
-{% extends 'base.html.twig' %} {% block title %}Réservation{% endblock %}
-{% block body %}
-    <h1>Détail d'une Réservation</h1>
+{% extends 'base.html.twig' %} {% block title %}Réservation{% endblock %} {%
+block body %}
+<h1>Détail d'une Réservation</h1>
 
-    <table class="table">
-        <tbody>
-        <tr>
-        </tr>
-        <tr>
-            <th>Début</th>
-            <td>
-                {{ reservation.dateStart ? reservation.dateStart|date('Y-m-d') : '' }}
-            </td>
-        </tr>
-        <tr>
-            <th>Fin</th>
-            <td>
-                {{ reservation.dateEnd ? reservation.dateEnd|date('Y-m-d') : '' }}
-            </td>
-        </tr>
-        <tr>
-            <th>Lieu</th>
-            <td>{{ reservation.parking.place.title }}</td>
-        </tr>
-        <tr>
-            <th>Place de Parking</th>
-            <td>{{ reservation.spot.code }}</td>
-        </tr>
-        <tr>
-            <th>Voiture</th>
-            <td>{{ reservation.car.label }} ({{ reservation.car.ref }})</td>
-        </tr>
-        <tr>
-            <th>Prix</th>
-            <td>{{ reservation.prix }} EUR</td>
-        </tr>
-        </tbody>
-    </table>
+<table class="table">
+  <tbody>
+    <tr></tr>
+    <tr>
+      <th>Début</th>
+      <td>
+        {{ reservation.dateStart ? reservation.dateStart|date('Y-m-d') : '' }}
+      </td>
+    </tr>
+    <tr>
+      <th>Fin</th>
+      <td>
+        {{ reservation.dateEnd ? reservation.dateEnd|date('Y-m-d') : '' }}
+      </td>
+    </tr>
+    <tr>
+      <th>Lieu</th>
+      <td>{{ reservation.parking.place.title }}</td>
+    </tr>
+    <tr>
+      <th>Place de Parking</th>
+      <td>{{ reservation.spot.code }}</td>
+    </tr>
+    <tr>
+      <th>Voiture</th>
+      <td>{{ reservation.car.label }} ({{ reservation.car.ref }})</td>
+    </tr>
+    <tr>
+      <th>Prix</th>
+      <td>{{ reservation.prix }} EUR</td>
+    </tr>
+  </tbody>
+</table>
 
-    {{ include("reservation/my/_delete_form.html.twig") }}<br>
-    <a href="{{ path('my_reservations_index') }}">Retour à la liste</a>
+{{ include("reservation/my/_delete_form.html.twig") }}<br />
+<a href="{{ path('my_reservations_index') }}">Retour à la liste</a>
 
-    <script>
-        function anullerReservation() {
-            swal({
-                title: 'Êtes vous sûr(e) ?',
-                text: "Une fois votre réservation anullée, nous ne pouvons pas garantir que vous puissiez en retrouver une aux mêmes dates. Nous vous rembourserons 50% du prix de votre réservation, soit {{ reservation.prix / 2 }} EUR",
-                type: 'warning',
-                showCancelButton: true,
-                confirmButtonText: 'Oui, anuller ma réservation',
-                cancelButtonText: 'Non, je conserve ma réservation',
-                reverseButtons: true
-            }).then((result) => {
-                if (result.value) {
-                    swal({
-                        title: 'Anullation en cours',
-                        html: 'Merci de patienter',
-                        timer: 1000,
-                        onOpen: () => {
-                            swal.showLoading()
-                            timerInterval = setInterval(() => {
-                                swal.getContent().querySelector('strong')
-                                    .textContent = swal.getTimerLeft()
-                            }, 100)
-                        },
-                        onClose: () => {
-                            $('#cancelmyreservationform').submit();
-                        }
-                    })
-
-                }
-            });
-        }
-    </script>
+<script>
+  function AnnulerReservation() {
+    swal({
+      title: "Êtes vous sûr(e) ?",
+      text:
+        "Une fois votre réservation Annulée, nous ne pouvons pas garantir que vous puissiez en retrouver une aux mêmes dates. Nous vous rembourserons 50% du prix de votre réservation, soit {{ reservation.prix / 2 }} EUR",
+      type: "warning",
+      showCancelButton: true,
+      confirmButtonText: "Oui, Annuler ma réservation",
+      cancelButtonText: "Non, je conserve ma réservation",
+      reverseButtons: true
+    }).then(result => {
+      if (result.value) {
+        swal({
+          title: "Annulation en cours",
+          html: "Merci de patienter",
+          timer: 1000,
+          onOpen: () => {
+            swal.showLoading();
+            timerInterval = setInterval(() => {
+              swal
+                .getContent()
+                .querySelector("strong").textContent = swal.getTimerLeft();
+            }, 100);
+          },
+          onClose: () => {
+            $("#cancelmyreservationform").submit();
+          }
+        });
+      }
+    });
+  }
+</script>
 {% endblock %}

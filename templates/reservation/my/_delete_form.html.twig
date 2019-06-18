@@ -1,6 +1,19 @@
-<!--<form method="post" action="{{ path('my_reservations_delete', {'id': reservation.id}) }}" onsubmit="return confirm('Voulez-vous vraiment anuller cette réservation ? Une fois anullée nous ne pouvons pas garantir que vous puissiez en trouver une nouvelle.   ');">-->
-<form method="post" action="{{ path('my_reservations_delete', {'id': reservation.id}) }}" id="cancelmyreservationform">
-    <input type="hidden" name="_method" value="DELETE">
-    <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ reservation.id) }}">
-    <a class="btn btn-danger" onclick="anullerReservation()" style="cursor: pointer">Anuller ma réservation</a>
+<!--<form method="post" action="{{ path('my_reservations_delete', {'id': reservation.id}) }}" onsubmit="return confirm('Voulez-vous vraiment Annuler cette réservation ? Une fois Annulée nous ne pouvons pas garantir que vous puissiez en trouver une nouvelle.   ');">-->
+<form
+  method="post"
+  action="{{ path('my_reservations_delete', { id: reservation.id }) }}"
+  id="cancelmyreservationform"
+>
+  <input type="hidden" name="_method" value="DELETE" />
+  <input
+    type="hidden"
+    name="_token"
+    value="{{ csrf_token('delete' ~ reservation.id) }}"
+  />
+  <a
+    class="btn btn-danger"
+    onclick="AnnulerReservation()"
+    style="cursor: pointer"
+    >Annuler ma réservation</a
+  >
 </form>
