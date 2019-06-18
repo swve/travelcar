@@ -141,4 +141,49 @@ class MyReservationsController extends AbstractController
         return true;
     }
 
+    /**
+     * @Route("/reservation/new/{spot}/{car}/{start}/{end}", name="reservation_save", methods={"GET"})
+     */
+    public function saveReservation(ParkingSpot $spot, Car $car, $start, $end): Response
+    {
+        // If the car selected is somehow not the user's car, deny access
+        $this->denyAccessUnlessGranted('CAR_OWNER', $car);
+
+        if ($this->validateSpot($spot, $start, $end)) {
+
+            $reservation = new Reservation();
+            $reservation->setSpot($spot);
+            $reservation->setParking($spot->getParking());
+            $reservation->setCar($car);
+            $reservation->setUser($this->getUser());
+
+            $startDate = new Carbon($start);
+            $endDate = new Carbon($end);
+
+            $reservation->setDateStart($startDate);
+            $reservation->setDateEnd($endDate);
+
+            $days = $startDate->diffInDays($endDate)+1;
+
+            $price = $spot->getParking()->getPrice() * $days;
+
+            $reservation->setPrix($price);
+
+            $em = $this->getDoctrine()->getManager();
+
+            $em->persist($reservation);
+
+            $em->flush();
+
+            return $this->redirectToRoute('my_reservations_view', ['id' => $reservation->getId()]);
+
+
+        } else {
+
+            return $this->render('reservation/my/reservationerror.html.twig', [
+               'result' => false
+            ]);
+        }
+    }
+
 }

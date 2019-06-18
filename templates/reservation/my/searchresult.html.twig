@@ -37,15 +37,48 @@
                     <b>{{ spot.parking.price * reservationDays }} EUR ({{ spot.parking.price }} EUR par jour)</b>
                 </td>
                 <td>
-                    <a href="#">Réserver</a>
+                    <button class="btn btn-primary" onclick="confirmerReservation('{{ spot.parking.price * reservationDays }}', '{{ date_start }}', '{{ date_end }}', '{{ path('reservation_save', {'spot': spot.id, 'car': voiture, 'start': date_start, 'end': date_end}) }}')">Réserver</button>
                 </td>
             </tr>
         {% else %}
             <tr>
-                <td colspan="6">Aucune réservation&nbsp;! </td>
+                <td colspan="6">Désolés, nous n'avons pas trouvé de place correspondant à vos critères.</td>
             </tr>
         {% endfor %}
         </tbody>
     </table>
+
+    <script>
+        function confirmerReservation(prix, debut, fin, url) {
+            swal({
+                title: 'Confirmer la réservation ?',
+                text: "Vous êtes sur le point de réserver une place du "+debut+" au "+fin+" pour un prix de "+prix+" EUR",
+                type: 'warning',
+                showCancelButton: true,
+                confirmButtonText: 'Oui, je réserve !',
+                cancelButtonText: 'Non merci',
+                reverseButtons: true
+            }).then((result) => {
+                if (result.value) {
+                    swal({
+                        title: 'Réservation en cours',
+                        html: 'Merci de patienter',
+                        timer: 2000,
+                        onOpen: () => {
+                            swal.showLoading()
+                            timerInterval = setInterval(() => {
+                                swal.getContent().querySelector('strong')
+                                    .textContent = swal.getTimerLeft()
+                            }, 100)
+                        },
+                        onClose: () => {
+                            window.location.href = url
+                        }
+                    })
+
+                }
+            });
+        }
+    </script>
 
 {% endblock %}
