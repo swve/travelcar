@@ -41,7 +41,7 @@ box-shadow: 0px 11px 9px 0 rgba(60, 64, 67, 0.13), 0 1px 3px 1px rgba(60, 64, 67
         {%endif%}
         {%endif%}
 
-        $('select > option').each(function() {
+        $('#reservation_search_voiture > option').each(function() {
             if (!userCars.includes(this.value)) {
                 $(this).remove();
             }
