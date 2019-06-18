@@ -1,0 +1,40 @@
+{% extends 'base.html.twig' %} {% block title %}Recherche de place{%
+    endblock %} {% block body %}
+    <h1>Places disponibles selon vos critères</h1>
+
+    <table class="table">
+        <thead>
+        <tr>
+            <th>Code</th>
+            <th>Fin</th>
+            <th>Lieu</th>
+            <th>Place de parking</th>
+            <th>Voiture</th>
+            <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for spot in spots %}
+            <tr>
+                <td>
+                    {{ spot. ? reservation.dateStart|date('Y-m-d') : '' }}
+                </td>
+                <td>
+                    {{ reservation.dateEnd ? reservation.dateEnd|date('Y-m-d') : '' }}
+                </td>
+                <td>{{ reservation.parking.place.title }}</td>
+                <td>{{ reservation.spot.code }}</td>
+                <td>{{ reservation.car.label }} ({{ reservation.car.ref }})</td>
+                <td>
+                    <a href="{{ path('my_reservations_view', { id: reservation.id }) }}">Détails</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="6">Aucune réservation&nbsp;! </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+{% endblock %}

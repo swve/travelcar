@@ -8,16 +8,18 @@
     <div class="container">
         <h1 class="display-4">TravelCar</h1>
         <p class="lead">La solution parfaite pour vos vacances </p>
-        <form action="" method="post">
-           Lieu de stationnement <input type="text" name="" id=""> <br>
-           Date de début <input type="date" name="" id=""> <input type="time" name="" id=""> <br>
-           Date de fin <input type="date" name="" id=""> <input type="time" name="" id="">
-        </form>
+        {% if app.user %}
+            $
+            {{ include("reservation/my/_search._form.html.twig", { button_label: "C'est parti !" }) }}
+        {% else %}
+        <h3>Vous devez vous connecter afin de pouvoir chercher une réservation</h3>
+        {% endif %}
     </div>
 </div>
 <br>
 <div class="container">
     <h1>Comment ça marche</h1>
-    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Alias totam asperiores vero voluptates! Quo debitis accusamus dolor natus praesentium, animi mollitia itaque. Quas aliquam deleniti consequatur neque eos tempore at!</p>
+    <p>Avec TravelCar&trade;, trouver une place de parking pour vos vacances n'a jamais été aussi facile&nbsp;!</p>
+    <p>Il vous suffit de répondre aux questions que l'on vous pose dans notre formulaire de recherche de place de parking et nous vous suggérerons des possibilités&nbsp;!</p>
 </div>
 {% endblock %}
