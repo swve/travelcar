@@ -5,6 +5,7 @@ namespace App\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use phpDocumentor\Reflection\Location;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\ParkingSpotRepository")
@@ -27,6 +28,11 @@ class ParkingSpot
      * @ORM\ManyToOne(targetEntity="App\Entity\Parking", inversedBy="availableSpots")
      */
     private $parking;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Lieu", inversedBy="availableSpots")
+     */
+    private $place;
 
     /**
      * @ORM\Column(type="date", nullable=true)
@@ -73,6 +79,18 @@ class ParkingSpot
     public function setParking(?parking $parking): self
     {
         $this->parking = $parking;
+
+        return $this;
+    }
+
+    public function getPlace()
+    {
+        return $this->place;
+    }
+
+    public function setPlace($lieu): self
+    {
+        $this->place = $lieu;
 
         return $this;
     }

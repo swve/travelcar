@@ -2,10 +2,14 @@
 
 namespace App\Controller;
 
+use App\Entity\Car;
 use App\Entity\Lieu;
+use App\Entity\ParkingSpot;
 use App\Entity\Reservation;
 use App\Form\ReservationSearchType;
 use App\Security\Voter\CarVoter;
+use Carbon\Carbon;
+use Carbon\CarbonPeriod;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -57,6 +61,7 @@ class MyReservationsController extends AbstractController
 
     /**
      * @Route("/reservation/search", name="my_reservations_search_for_new", methods={"POST"})
+     * This method is super heavy both on the database and the PHP runtime, use with caution I guess?
      */
     public function newReservationSearchSimple(Request $request): Response
     {
@@ -69,18 +74,30 @@ class MyReservationsController extends AbstractController
 
             $search = $request->request->get('reservation_search');
 
-            $voiture = $this->getDoctrine()->getRepository(Voiture::class)->find($search['voiture']);
+            $voiture = $this->getDoctrine()->getRepository(Car::class)->find($search['voiture']);
 
             // If the car selected is somehow not the user's car, deny access
             $this->denyAccessUnlessGranted('CAR_OWNER', $voiture);
 
             $lieu = $this->getDoctrine()->getRepository(Lieu::class)->find($search['lieu']);
-            $lieu->getAvailableSpots();
+            $parkings = $lieu->getParkings();
 
             $reservations = $this->getDoctrine()->getRepository(Reservation::class)->findAll(); // beurk
 
+            $filteredSpots = [];
+
+            foreach ($parkings as $parking) {
+                foreach ($parking->getAvailableSpots() as $spot) {
+
+                    if ($this->validateSpot($spot, $search['date_start'], $search['date_end'])) {
+                        array_push($filteredSpots, $spot);
+                    }
+
+                }
+            }
+
             return $this->render('reservation/my/searchresult.html.twig', [
-                'spots' => $lieu->getAvailableSpots(),
+                'spots' => $filteredSpots,
                 'date_start' => $search['date_start'],
                 'date_end' => $search['date_end'],
                 'voiture' => $search['voiture'],
@@ -95,4 +112,32 @@ class MyReservationsController extends AbstractController
             ]);
         }
     }
+
+    /**
+     * @param ParkingSpot $spot
+     * @param $dateStart
+     * @param $dateEnd
+     * @return boolean
+     */
+    public function validateSpot(ParkingSpot $spot, $dateStart, $dateEnd) {
+
+        foreach ($spot->getReservations() as $reservation) {
+
+            $searchStart = new Carbon($dateStart);
+            $searchEnd = new Carbon($dateEnd);
+
+            $reservationStart = Carbon::instance($reservation->getDateStart());
+            $reservationEnd = Carbon::instance($reservation->getDateEnd());
+
+            if ($searchStart->between($reservationStart, $reservationEnd) or $searchEnd->between($reservationStart, $reservationEnd)) {
+                return false;
+            }
+
+            // Didn't end up using this but leaving it here anyways in case we need it later (idk)
+            //$cp = CarbonPeriod::between($reservation->getDateStart(), $reservation->getDateEnd());
+        }
+
+        return true;
+    }
+
 }

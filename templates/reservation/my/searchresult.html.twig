@@ -6,10 +6,8 @@
         <thead>
         <tr>
             <th>Code</th>
-            <th>Fin</th>
-            <th>Lieu</th>
-            <th>Place de parking</th>
-            <th>Voiture</th>
+            <th>Parking</th>
+            <th>Disponibilité</th>
             <th>Actions</th>
         </tr>
         </thead>
@@ -17,16 +15,14 @@
         {% for spot in spots %}
             <tr>
                 <td>
-                    {{ spot. ? reservation.dateStart|date('Y-m-d') : '' }}
+                    {{ spot.code }}
                 </td>
                 <td>
-                    {{ reservation.dateEnd ? reservation.dateEnd|date('Y-m-d') : '' }}
+                    {{ spot.parking }}
                 </td>
-                <td>{{ reservation.parking.place.title }}</td>
-                <td>{{ reservation.spot.code }}</td>
-                <td>{{ reservation.car.label }} ({{ reservation.car.ref }})</td>
+                <td></td>
                 <td>
-                    <a href="{{ path('my_reservations_view', { id: reservation.id }) }}">Détails</a>
+                    {# Reserve spot for period #}
                 </td>
             </tr>
         {% else %}
