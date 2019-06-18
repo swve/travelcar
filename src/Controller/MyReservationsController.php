@@ -97,6 +97,7 @@ class MyReservationsController extends AbstractController
             }
 
             return $this->render('reservation/my/searchresult.html.twig', [
+                'place' => $lieu,
                 'spots' => $filteredSpots,
                 'date_start' => $search['date_start'],
                 'date_end' => $search['date_end'],

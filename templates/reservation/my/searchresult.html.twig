@@ -1,6 +1,15 @@
 {% extends 'base.html.twig' %} {% block title %}Recherche de place{%
     endblock %} {% block body %}
     <h1>Places disponibles selon vos critères</h1>
+    <p>Lieu choisi: <b>{{ place.title }}</b>, du <b>{{ date_start|date('Y-m-d') }}</b>, au <b>{{ date_end|date('Y-m-d') }}</b></p>
+
+    {% set difference = date(date_start).diff(date(date_end)) %}
+    {% set reservationDays = difference.days + 1 %}
+    {% if reservationDays == 1 %}
+        Durée totale&nbsp;: 1 jour
+    {% else %}
+        Durée totale&nbsp;: {{ reservationDays }} jours
+    {% endif %}
 
     <table class="table">
         <thead>
@@ -8,6 +17,7 @@
             <th>Code</th>
             <th>Parking</th>
             <th>Disponibilité</th>
+            <th>Prix</th>
             <th>Actions</th>
         </tr>
         </thead>
@@ -20,9 +30,14 @@
                 <td>
                     {{ spot.parking }}
                 </td>
-                <td></td>
                 <td>
-                    {# Reserve spot for period #}
+                    <span class="text-success">Disponible du {{ date_start|date('Y-m-d') }} au {{ date_end|date('Y-m-d') }}</span>
+                </td>
+                <td>
+                    <b>{{ spot.parking.price * reservationDays }} EUR ({{ spot.parking.price }} EUR par jour)</b>
+                </td>
+                <td>
+                    <a href="#">Réserver</a>
                 </td>
             </tr>
         {% else %}
