@@ -13,7 +13,6 @@ box-shadow: 0px 11px 9px 0 rgba(60, 64, 67, 0.13), 0 1px 3px 1px rgba(60, 64, 67
         <h1 class="display-4">TravelCar</h1>
         <p class="lead">La solution parfaite pour vos vacances </p>
        {% if app.user %}
-            $
             {{ include("reservation/my/_search._form.html.twig", { button_label: "C'est parti !" }) }}
         {% else %}
         <h3>Vous devez vous connecter afin de pouvoir chercher une réservation</h3>
