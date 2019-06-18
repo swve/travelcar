@@ -45,9 +45,9 @@
       <div class="login navbar-nav my-lg-0">
         {% if is_granted('ROLE_USER') %}
         {% if app.user.imageName %}
-            <img src="{{ vich_uploader_asset(app.user, 'imageFile') }}" alt="{{ app.user.firstname }} {{ app.user.lastname }}" class="d-inline-block align-top rounded" style="width: 43px;">
+            <img src="{{ vich_uploader_asset(app.user, 'imageFile') }}" alt="{{ app.user.firstname }} {{ app.user.lastname }}" class="d-inline-block align-top rounded" style="width: 43px;height: 39px;">
         {% else %}
-            <img src="{{ asset('img/default_avatar.png') }}" alt="{{ app.user.firstname }} {{ app.user.lastname }}" class="d-inline-block align-top rounded" style="width: 43px;" >
+            <img src="{{ asset('img/default_avatar.png') }}" alt="{{ app.user.firstname }} {{ app.user.lastname }}" class="d-inline-block align-top rounded" style="width: 43px;height: 39px;" >
         {% endif %}
         <li class="nav-item dropdown">
             
